@@ -46,8 +46,8 @@ def get_comments():
     Получение количества комментариев
     :return: кол-во комментариев
     """
-    # with open('data\\data.json', 'r', encoding='UTF-8') as f:
-    with open('data/data.json', 'r', encoding='UTF-8') as f:
+    # with open('data\\comments.json', 'r', encoding='UTF-8') as f:
+    with open('data/comments.json', 'r', encoding='UTF-8') as f:
     # with open(os.path.join(DATA_FOLDER, 'comments.json'), 'r', encoding='UTF-8') as f:
         raw_json = f.read()
         # print(raw_json)
