@@ -8,6 +8,7 @@ DATA_FOLDER = os.path.dirname(os.path.realpath(__file__)) + "\\data"
 
 
 # "data/data.json"
+# os.path.join(DATA_FOLDER,
 # print(DATA_FOLDER)
 # os.path.join(UPLOAD_FOLDER, 'filename.png')
 def get_posts():
@@ -15,7 +16,7 @@ def get_posts():
     Получение списка постов с комментариями
     :return: список словарей постов с комментариями
     """
-    with open(os.path.join(DATA_FOLDER, 'data.json'), 'r', encoding='UTF-8') as f:
+    with open('data/data.json', 'r', encoding='UTF-8') as f:
         raw_json = f.read()
         # print(raw_json)
     posts = json.loads(raw_json)
@@ -36,7 +37,7 @@ def get_comments():
     Получение количества комментариев
     :return: кол-во комментариев
     """
-    with open(DATA_FOLDER + '/' + 'comments.json', 'r', encoding='UTF-8') as f:
+    with open('data/comments.json', 'r', encoding='UTF-8') as f:
         raw_json = f.read()
         # print(raw_json)
     comments = json.loads(raw_json)
