@@ -45,5 +45,5 @@ def search_tags(tag):
     result = [x for x in posts if '#'+tag in x['tags']]
     return render_template("tag.html", posts=result, tag=tag)
 
-# if __name__ == '__main__':
-app.run()
+if __name__ == '__main__':
+    app.run()
