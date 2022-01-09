@@ -15,6 +15,8 @@ def get_posts():
     Получение списка постов с комментариями
     :return: список словарей постов с комментариями
     """
+    # with open('data\\data.json', 'r', encoding='UTF-8') as f:
+    # with open('data/data.json', 'r', encoding='UTF-8') as f:
     with open(os.path.join(DATA_FOLDER, 'data.json'), 'r', encoding='UTF-8') as f:
         raw_json = f.read()
         # print(raw_json)
@@ -36,7 +38,9 @@ def get_comments():
     Получение количества комментариев
     :return: кол-во комментариев
     """
-    with open(DATA_FOLDER + '/' + 'comments.json', 'r', encoding='UTF-8') as f:
+    # with open('data\\data.json', 'r', encoding='UTF-8') as f:
+    # with open('data/data.json', 'r', encoding='UTF-8') as f:
+    with open(os.path.join(DATA_FOLDER, 'comments.json'), 'r', encoding='UTF-8') as f:
         raw_json = f.read()
         # print(raw_json)
     comments = json.loads(raw_json)
