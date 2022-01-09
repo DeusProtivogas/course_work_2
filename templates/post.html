@@ -27,11 +27,11 @@
       <section class="items">
       <div class="items__item item item--post">
         <div class="item__top">
-          <a href="/user-feed.html" class="item__head">
+          <a href="/users/{{ post.poster_name }}" class="item__head">
             <div class="item__ava-wrap">
               <img src="{{ post.poster_avatar }}" alt="" class="item__ava" width="47">
             </div>
-            <span class="item__username">Username</span>
+            <span class="item__username">{{ post.poster_name }}</span>
           </a>
           <button type="button" class="item__bookmark-btn">
             <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">

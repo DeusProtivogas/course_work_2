@@ -24,8 +24,10 @@ def get_posts():
         post['comments'] = [x for x in comments if x['post_id'] == post['pk']]
         post['comments_counter'] = len(post['comments'])
         post['conjugate'] = conjugate_comment(post['comments_counter'])
-        print(post)
-    print(posts)
+        post['content_short'] = post['content'][:47].strip("., !?") + "..."
+        # post['content_very_short'] = post['content'][:7].strip("., !?") + "..."
+    #     print(post)
+    # print(posts)
     return posts
 
 
@@ -54,4 +56,4 @@ def conjugate_comment(num):
     return "комментариев"
 
 
-get_posts()
+# get_posts()
