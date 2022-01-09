@@ -26,7 +26,15 @@ def get_posts():
         post['comments'] = [x for x in comments if x['post_id'] == post['pk']]
         post['comments_counter'] = len(post['comments'])
         post['conjugate'] = conjugate_comment(post['comments_counter'])
+        # print(post['content'])
         post['content_short'] = post['content'][:47].strip("., !?") + "..."
+        post['tags'] = get_tags(post)
+        for tag in post['tags']:
+            post['content'] = post['content'].replace(" " + tag + " ", " " + tag_to_link(tag) + " ")
+            # print(post['content'])
+            post['content_short'] = post['content_short'].replace(" " + tag + " ", " " + tag_to_link(tag) + " ")
+        # print(post['content'])
+
         # post['content_very_short'] = post['content'][:7].strip("., !?") + "..."
     #     print(post)
     # print(posts)
@@ -60,4 +68,13 @@ def conjugate_comment(num):
     return "комментариев"
 
 
-# get_posts()
+def get_tags(post):
+    tags = [x for x in post['content'].split(" ") if x.startswith("#")]
+    # print(tags)
+    return sorted(list(set(tags)))
+
+
+def tag_to_link(tag):
+    return f'<a href="/tag/{tag[1:]}">{tag}</a>'
+
+get_posts()

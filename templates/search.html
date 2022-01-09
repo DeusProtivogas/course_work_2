@@ -45,7 +45,7 @@
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
         <p class="item__descr"><a href="/tag.html" class="item__tag">#food</a>
-            {{ post.content_short }}</p>
+            {{ post.content_short|safe }}</p>
         <div class="item__post-info">
           <p class="item__comments-counter">{{ post.comments_counter }} {{ post.conjugate }}</p>
           <div class="item__counter">

@@ -16,15 +16,16 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#back"></use>
         </svg>
       </a>
-      <a href="/" class="header__logo-link">
+      <a href="/users/{{ user_name }}" class="header__logo-link">
         <svg class="header__logo" width="142" height="26">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#skypro"></use> {# ???? #}
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#"></use><text x="1" y="20">{{ user_name }}</text>
         </svg>
       </a>
     </div>
   </header>
   <main class="container">
     <section class="items">
+{#            для каждого поста вывожу тэг, краткое содержание, имя пользователя и аватарку   #}
         {% for post in posts %}
       <div class="items__item item">
         <div class="item__top">
@@ -38,7 +39,12 @@
         <a href="/post/{{ post.pk }}" class="item__post-link">
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
         </a>
-        <p class="item__descr"><a href="#" class="item__tag">#food</a> {{ post.content_short }}</p>
+        <p class="item__descr">
+{#        если в посте есть тэги, вывожу первый тэг; иначе не вывожу тэги   #}
+            {% if post.tags %}
+            <a href="/tag/{{ post.tags[0][1:] }}" class="item__tag">{{ post.tags[0] }}</a>
+            {% endif %}
+            {{ post.content_short|safe }}</p>
         <div class="item__post-info">
           <p class="item__comments-counter">{{ post.comments_counter }} {{ post.conjugate }}</p>
           <div class="item__counter">
@@ -54,60 +60,6 @@
         </div>
       </div>
         {% endfor %}
-{#      <div class="items__item item">#}
-{#        <div class="item__top">#}
-{#          <a href="/user-feed.html" class="item__head">#}
-{#            <div class="item__ava-wrap">#}
-{#              <img src="../static/img/ava2.png" alt="" class="item__ava" width="47">#}
-{#            </div>#}
-{#            <span class="item__username">Username</span>#}
-{#          </a>#}
-{#        </div>#}
-{#        <a href="/post.html" class="item__post-link">#}
-{#          <img src="../static/img/post6.jpg" alt="" width="348" class="item__post-img">#}
-{#        </a>#}
-{#        <p class="item__descr"><a href="#" class="item__tag">#food</a> Текст описания коротки...</p>#}
-{#        <div class="item__post-info">#}
-{#          <p class="item__comments-counter">Нет комментариев</p>#}
-{#          <div class="item__counter">#}
-{#            <img src="../static/img/eye.png" alt="" class="item__counter-icon" width="26">#}
-{#            <span class="item__counter-text">1023</span>#}
-{#          </div>#}
-{#        </div>#}
-{#        <div class="item__post-bottom">#}
-{#          <a href="/post.html" class="item__btn-more">Подробнее</a>#}
-{#          <button type="button" class="item__bookmark-btn active">#}
-{#            <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">#}
-{#          </button>#}
-{#        </div>#}
-{#      </div>#}
-{#      <div class="items__item item">#}
-{#        <div class="item__top">#}
-{#          <a href="user-feed.html" class="item__head">#}
-{#            <div class="item__ava-wrap">#}
-{#              <img src="../static/img/ava2.png" alt="" class="item__ava" width="47">#}
-{#            </div>#}
-{#            <span class="item__username">Username</span>#}
-{#          </a>#}
-{#        </div>#}
-{#        <a href="/post.html" class="item__post-link">#}
-{#          <img src="../static/img/post7.jpg" alt="" width="348" class="item__post-img">#}
-{#        </a>#}
-{#        <p class="item__descr"><a href="#" class="item__tag">#food</a> Текст описания коротки...</p>#}
-{#        <div class="item__post-info">#}
-{#          <p class="item__comments-counter">5 комментариев</p>#}
-{#          <div class="item__counter">#}
-{#            <img src="../static/img/eye.png" alt="" class="item__counter-icon" width="26">#}
-{#            <span class="item__counter-text">1023</span>#}
-{#          </div>#}
-{#        </div>#}
-{#        <div class="item__post-bottom">#}
-{#          <a href="/post.html" class="item__btn-more">Подробнее</a>#}
-{#          <button type="button" class="item__bookmark-btn">#}
-{#            <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">#}
-{#          </button>#}
-{#        </div>#}
-{#      </div>#}
     </section>
   </main>
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
