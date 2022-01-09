@@ -27,16 +27,16 @@ def search_posts():
                 result.append(post)
             if len(result) == 10:
                 break
-        print(result)
+        # print(result)
     return render_template("search.html", posts=result, posts_number=len(result))
 
 
 @app.route("/users/<user>")
 def search_user(user):
-    print(user)
+    # print(user)
     result = [x for x in posts if x['poster_name'] == user]
-    print(result)
+    # print(result)
     return render_template("user-feed.html", posts=result, user_name=user)
 
-
-app.run()
+if __name__ == '__main__':
+    app.run()
