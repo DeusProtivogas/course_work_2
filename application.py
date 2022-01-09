@@ -1,5 +1,8 @@
 from flask import Flask, request, render_template
+import json, os
 from functions import *
+
+# TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)) + "\\templates"
 
 app = Flask(__name__)
 
@@ -27,7 +30,6 @@ def search_posts():
                 result.append(post)
             if len(result) == 10:
                 break
-        # print(result)
     return render_template("search.html", posts=result, posts_number=len(result))
 
 
@@ -38,5 +40,10 @@ def search_user(user):
     # print(result)
     return render_template("user-feed.html", posts=result, user_name=user)
 
+@app.route("/tag/<tag>")
+def search_tags(tag):
+    result = [x for x in posts if '#'+tag in x['tags']]
+    return render_template("tag.html", posts=result, tag=tag)
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
