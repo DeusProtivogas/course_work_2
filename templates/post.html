@@ -33,9 +33,11 @@
             </div>
             <span class="item__username">{{ post.poster_name }}</span>
           </a>
-          <button type="button" class="item__bookmark-btn">
-            <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
-          </button>
+            <form action="/bookmark/{{ post.pk }}">
+              <button type="submit" class="item__bookmark-btn" >
+                <img src="../static/img/bookmark.png" alt="" class="item__bookmark-icon" width="24">
+              </button>
+            </form>
         </div>
         <a href="/post/{{ post.pk }}" class="item__post-link">
           <img src="{{ post.pic }}" alt="" width="348" class="item__post-img">
@@ -61,12 +63,12 @@
                 </p>
               {% endfor %}
           </div>
-          <form action="/" class="item__comment-form comment-form">
+          <form action="/comment_add/{{ post.pk }}" method="post" class="item__comment-form comment-form">
             <div class="comment-form__input-wrap">
-              <input type="search" class="comment-form__input" placeholder="Ваше имя">
+              <input name="name" type="search" class="comment-form__input" placeholder="Ваше имя">
             </div>
             <div class="comment-form__input-wrap">
-              <textarea class="comment-form__textarea" placeholder="Ваш комментарий" rows="6"></textarea>
+              <textarea name="content" class="comment-form__textarea" placeholder="Ваш комментарий" rows="6"></textarea>
             </div>
             <button type="submit" class="comment-form__btn">Отправить</button>
           </form>

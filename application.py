@@ -1,16 +1,15 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 import json, os
 from functions import *
-
-# TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)) + "\\templates"
 
 app = Flask(__name__)
 
 posts = get_posts()
+bookmarks = get_bookmarks()
 
 @app.route("/")
 def index():
-    return render_template("index.html", posts=posts)
+    return render_template("index.html", posts=posts, bookmarks_counter=len(bookmarks))
 
 @app.route("/post/<id>")
 def post_info(id):  # add NO POST exception
@@ -35,15 +34,60 @@ def search_posts():
 
 @app.route("/users/<user>")
 def search_user(user):
-    # print(user)
     result = [x for x in posts if x['poster_name'] == user]
-    # print(result)
     return render_template("user-feed.html", posts=result, user_name=user)
 
 @app.route("/tag/<tag>")
 def search_tags(tag):
     result = [x for x in posts if '#'+tag in x['tags']]
     return render_template("tag.html", posts=result, tag=tag)
+
+@app.route("/bookmark/<postid>")
+def bookmark(postid):
+    # проверяем, есть ли пост в закладках
+    for post in bookmarks:
+        if int(postid) == post['pk']:
+            return redirect(f"/bookmarks/remove/{postid}")  # нужно добавить пост в закладки
+    return redirect(f"/bookmarks/add/{postid}")  # нужно удалить пост из закладок
+
+@app.route("/bookmarks/add/<postid>")
+def bookmark_add(postid):
+    for post in posts:
+        if int(postid) == post['pk']:
+            bookmarks.append(post)
+            add_to_bookmarks(post)
+            print("added ", post)
+            return redirect("/", code=302)
+    return redirect("/", code=302)
+
+@app.route("/bookmarks/remove/<postid>")
+def bookmark_del(postid):
+    print(postid)
+    for i in range(len(bookmarks)):
+        if int(postid) == posts[i]['pk']:
+            del bookmarks[i]
+            remove_from_bookmarks(posts[i])
+            print("removed ", posts[i])
+            return redirect("/", code=302)
+    return redirect("/", code=302)
+
+@app.route("/bookmarks")
+def bookmarks_view():
+    return render_template("bookmarks.html", posts=bookmarks)
+
+@app.route("/comment_add/<postid>", methods=["POST"])
+def comment_add(postid):
+    print("id ", postid)
+    for i in range(len(posts)):
+        if int(postid) == posts[i]['pk']:
+            # print("adding comment")
+            name = request.form.get("name")
+            content = request.form.get("content")
+            print(name, content)
+            add_comment(postid, name, content)
+            posts[i]['comments'] = refresh_comments(int(postid))
+            posts[i]['comments_counter'] = len(posts[i]['comments'])
+            return redirect(f"/post/{postid}")
 
 if __name__ == '__main__':
     app.run()
