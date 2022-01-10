@@ -69,6 +69,7 @@ def bookmark_del(postid):
             del bookmarks[i]
             remove_from_bookmarks(postid)
             # print("removed ", posts[i])
+            print(bookmarks)
             return redirect("/", code=302)
     return redirect("/", code=302)
 
