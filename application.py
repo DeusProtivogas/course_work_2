@@ -62,12 +62,13 @@ def bookmark_add(postid):
 
 @app.route("/bookmarks/remove/<postid>")
 def bookmark_del(postid):
-    print(postid)
+    print("test ", postid)
     for i in range(len(bookmarks)):
-        if int(postid) == posts[i]['pk']:
+        if int(postid) == bookmarks[i]['pk']:
+            print("b ", bookmarks[i]['pk'])
             del bookmarks[i]
-            remove_from_bookmarks(posts[i])
-            print("removed ", posts[i])
+            remove_from_bookmarks(postid)
+            # print("removed ", posts[i])
             return redirect("/", code=302)
     return redirect("/", code=302)
 
